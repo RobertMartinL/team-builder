@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern')
 //const generatePage = require('./src/page-template');
 const generatePage = require('./src/page-template');
 //const { writeFile, copyFile } = require('./utils/generate-site');
@@ -67,12 +69,12 @@ const promptEngineer = () => {
         {
             type: 'input',
             name: 'name',
-            message: 'What is your name (Required)',
+            message: 'What is engineer name (Required)',
             validate: nameInput => {
                 if (nameInput) {
                     return true;
                 } else {
-                    console.log('Please enter your name!');
+                    console.log('Please enter name!');
                     return false;
                 }
             }
@@ -80,12 +82,12 @@ const promptEngineer = () => {
         {
             type: 'input',
             name: 'id',
-            message: 'What is your employee ID (Required)',
+            message: 'What is engineer employee ID (Required)',
             validate: idInput => {
                 if (idInput) {
                     return true;
                 } else {
-                    console.log('Please enter your employee ID!');
+                    console.log('Please enter employee ID!');
                     return false;
                 }
             }
@@ -93,12 +95,12 @@ const promptEngineer = () => {
         {
             type: 'input',
             name: 'email',
-            message: 'What is your employee email (Required)',
+            message: 'What is engineer employee email (Required)',
             validate: emailInput => {
                 if (emailInput) {
                     return true 
                 } else {
-                    console.log('Please enter your employee email!');
+                    console.log('Please enter employee email!');
                     return false;
                 }
             }
@@ -106,16 +108,16 @@ const promptEngineer = () => {
         {
             type: 'input',
             name: 'github',
-            message: 'What is your GitHub Username (Required)',
+            message: 'What is engineer GitHub Username (Required)',
             validate: emailInput => {
                 if (emailInput) {
                     return true 
                 } else {
-                    console.log('Please enter your employee email!');
+                    console.log('Please enter employee GitHub Username!');
                     return false;
                 }
             }
-        }
+        },
     ]);
 };
 
@@ -124,12 +126,12 @@ const promptIntern = () => {
         {
             type: 'input',
             name: 'name',
-            message: 'What is your name (Required)',
+            message: 'What is interns name (Required)',
             validate: nameInput => {
                 if (nameInput) {
                     return true;
                 } else {
-                    console.log('Please enter your name!');
+                    console.log('Please enter intern name!');
                     return false;
                 }
             }
@@ -137,12 +139,12 @@ const promptIntern = () => {
         {
             type: 'input',
             name: 'id',
-            message: 'What is your employee ID (Required)',
+            message: 'What is interns employee ID (Required)',
             validate: idInput => {
                 if (idInput) {
                     return true;
                 } else {
-                    console.log('Please enter your employee ID!');
+                    console.log('Please enter employee ID!');
                     return false;
                 }
             }
@@ -150,12 +152,12 @@ const promptIntern = () => {
         {
             type: 'input',
             name: 'email',
-            message: 'What is your employee email (Required)',
+            message: 'What is interns employee email (Required)',
             validate: emailInput => {
                 if (emailInput) {
                     return true 
                 } else {
-                    console.log('Please enter your employee email!');
+                    console.log('Please enter intern employee email!');
                     return false;
                 }
             }
@@ -163,17 +165,16 @@ const promptIntern = () => {
         {
             type: 'input',
             name: 'school',
-            message: 'What is your school (Required)',
+            message: 'What is interns school (Required)',
             validate: schoolInput => {
                 if (schoolInput) {
                     return true 
                 } else {
-                    console.log('Please enter your school!');
+                    console.log('Please enter school!');
                     return false;
                 }
             }
         },
-        promptAdd()
     ]);
 };
 
@@ -189,9 +190,19 @@ const promptAdd = () => {
     .then(data => {
         switch(data.teamadd) {
             case 'Add engineer': promptEngineer()
+            .then(data => {
+                const engineer = new Engineer(data.name, data.id, data.email, data.github)
+                empArr.push(engineer)
+            })
+            .then(promptAdd)
             break;
 
             case 'Add intern' : promptIntern()
+            .then(data => {
+                const intern = new Intern(data.name, data.id, data.email, data.school)
+                empArr.push(intern)
+            })
+            .then(promptAdd)
             break;
 
             default: assembleTeam()
@@ -205,8 +216,11 @@ promptManager()
     const manager = new Manager(data.name, data.id, data.email, data.number)
     empArr.push(manager)
     promptAdd()
-    console.log(empArr)
 });
+
+const assembleTeam = () => {
+    console.log(empArr)
+}
 
 
 
