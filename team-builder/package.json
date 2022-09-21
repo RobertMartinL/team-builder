@@ -1,0 +1,25 @@
+{
+  "name": "team-builder",
+  "version": "1.0.0",
+  "description": "builds team and generates html",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertMartinL/team-builder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobertMartinL/team-builder/issues"
+  },
+  "homepage": "https://github.com/RobertMartinL/team-builder#readme",
+  "devDependencies": {
+    "jest": "^29.0.3"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
