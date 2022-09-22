@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern')
-//const generatePage = require('./src/page-template');
+const fs = require('fs');
 const generatePage = require('./src/page-template');
 //const { writeFile, copyFile } = require('./utils/generate-site');
 const empArr = [
@@ -223,17 +223,15 @@ const assembleTeam = () => {
 }
 
 
+fs.writeFile('index.html', generatePage(name, github), err => {
+    if (err) throw err;
+  
+    console.log('Portfolio complete! Check out index.html to see the output!');
+  });
 
 
 
 
-
-
-
-//   .then(promptProject)
-//   .then(portfolioData => {
-//     return generatePage(portfolioData);
-//   })
 //   .then(pageHTML => {
 //     return writeFile(pageHTML);
 //   })
